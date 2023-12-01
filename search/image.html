@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+        <nav class="bg-light border navbar navbar-expand navbar-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/">Google Search</a></li>
+                        </ul>
+                </div>
+            </div>
+        </nav>
+        <main style="display: flex;
+        flex-direction: column;
+        height: 100vh;">
+        <div class="container">
+            <div class="logo-container">
+                <img src="static/Google-logo.png" style="width:250px;">
+                <div class="bottom-right">Images</div>
+            </div>
+        </div><br>
+            <form action="https://google.com/search" autocomplete="off">
+                <div class="d-flex justify-content-center"><input class="textbox" style="width: 500px" type="text" name="q"><input type="hidden" name="tbm" value="isch"></div><br>
+                <div class="d-flex justify-content-center"><input class="search" type="submit" value="Search"></div>
+            </form>
+        </main>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h1>{{ user.username }}</h1>
+<div id="profile">
+    <div>Followers: <span id="followers"></span></div>
+    <div>Following: <span id="following"></span></div>
+</div>
+<br><br>
+<h2>Your posts</h2><br>
+<div id="posts">
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="pagination">
+    </ul>
+</nav>
+<br>
+<b>Follow other users</b>
+<div id="users">
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/profile.js' %}"></script>
+{% endblock %}

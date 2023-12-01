@@ -1,0 +1,163 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="progress" style="height:30px; text-align: center; color:white;">
+    </div><br>
+    <div id="message"></div>
+    {% for item in items %}
+        <div class="card mb-3">
+            <table class="table table-borderless" style="width:100%">
+                <tr style="text-align: center; justify-content: center; width: 100%;">
+                    <div class="line"><div class="box"><div class="adv">{{ item.title }}</div><div style="color: grey;">+ Rp. {{ item.price }} </div><button class="btn-circle" data-title="{{ item.title }}" data-price="{{ item.price }}">🞅</button></div></div>
+                </tr>
+            </table>
+        </div>
+    {% endfor %}
+    <div id="footer" class="btn btn-dark">
+        <div class="line">
+            <div class="line_container">
+                <div><button id="-" class="btn btn-dark" style="border: none; outline: none;">-</button><div style="display: inline-block; vertical-align: middle;" id="counter"></div><button id="+" class="btn btn-dark" style="border: none; outline: none;">+</button></div>
+                <div id="footer_btn_container"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+        <script>
+            if (!localStorage.getItem('counter')) {
+                localStorage.setItem('counter', 1);
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                var info;
+                const add = document.getElementById("+");
+                const sub = document.getElementById("-");
+                let counter = localStorage.getItem('counter');
+                document.getElementById('counter').innerHTML = counter;
+                add.addEventListener('click', function() {
+                    add_count();
+                    load_cart();
+                });
+                sub.addEventListener('click', function() {
+                    sub_count();
+                    load_cart();
+                });
+                const btn = document.querySelectorAll(".btn-circle");
+                for (let i = 0; i < btn.length; i++) {
+                    btn[i].addEventListener('click', function() {
+                        for (let j = 0; j < btn.length; j++) {
+                            btn[j].innerHTML = "🞅";
+                        }
+                        info = {
+                            "item": btn[i].dataset.title,
+                            "price": Number(btn[i].dataset.price)
+                        };
+                        btn[i].innerHTML = "◉";
+                    });
+                }
+
+                const box = document.querySelectorAll(".box");
+                for (let i = 0; i < box.length; i++) {
+                    box[i].addEventListener('click', function() {
+                        for (let j = 0; j < btn.length; j++) {
+                            btn[j].innerHTML = "🞅";
+                        }
+                        info = {
+                            "item": btn[i].dataset.title,
+                            "price": Number(btn[i].dataset.price)
+                        };
+                        btn[i].innerHTML = "◉";
+                    });
+                }
+                
+                if (window.location.href.indexOf("options/6") > -1) {
+                    const msg = document.getElementById("message");
+                    msg.innerHTML = "<div style='padding-left:20px'>Please select a soup:<div><br>";
+                    const progress = document.querySelector(".progress");
+                    progress.innerHTML = `<div class="progress-bar" role="progressbar" style="width: 33.3%; background-color: rgb(65, 64, 64);">&#10003</div><div class="progress-bar-striped" role="progressbar" style="width: 33.3%; background-color: grey; border: solid rgb(20, 20, 20) 2px; padding-top: 3px;"><b>2</b></div><div class="progress-bar-striped" role="progressbar" style="width: 33.3%; background-color: grey;">3</div>`;
+                    const footer = document.getElementById("footer_btn_container");
+                    footer.innerHTML = `<a id="footer_btn"></a>`;
+                    const footer_btn = document.getElementById("footer_btn");
+                    footer_btn.addEventListener('click', function() {
+                        if (JSON.stringify(info)) {
+                            add_kuah(info);
+                            footer_btn.setAttribute("href", "{% url 'options' 4 %}");
+                        }
+                        else {
+                            alert("Please select an option!");
+                        }
+                    });
+                } 
+                else if (window.location.href.indexOf("options/4") > -1) {
+                    const msg = document.getElementById("message");
+                    msg.innerHTML = "<div style='padding-left:20px'>Please select a drink:<div><br>";
+                    if (localStorage.getItem('kuah')) {
+                        const progress = document.querySelector(".progress");
+                        progress.innerHTML = `<div class="progress-bar" role="progressbar" style="width: 33%; background-color: rgb(65, 64, 64);">&#10003</div><div class="progress-bar" role="progressbar" style="width: 33%; background-color: rgb(65, 64, 64);">&#10003</div><div class="progress-bar-striped" role="progressbar" style="width: 33%; background-color: grey; border: solid rgb(20, 20, 20) 2px; padding-top: 3px;"><b style="height:30px; vertical-align: middle;">3</b></div>`;
+                    }
+                    else {
+                        const progress = document.querySelector(".progress");
+                        progress.innerHTML = `<div class="progress-bar" role="progressbar" style="width: 50%; background-color: rgb(65, 64, 64);">&#10003</div><div class="progress-bar-striped" role="progressbar" style="width: 50%; background-color: grey; border: solid rgb(20, 20, 20) 2px; padding-top: 3px;"><b style="height:30px; vertical-align: middle;">2</b></div>`;
+                    }
+                    const footer = document.getElementById("footer_btn_container");
+                    footer.innerHTML = `<a id="footer_btn"></a>`;
+                    const footer_btn = document.getElementById("footer_btn");
+                    footer_btn.addEventListener('click', function() {
+                        if (JSON.stringify(info)) {
+                            add_drink(info);
+                            footer_btn.setAttribute("href", "{% url 'checkout' %}");
+                        }
+                        else {
+                            alert("Please select an option!");
+                        }
+                    });
+                }
+                load_cart();
+            })
+
+            function load_cart() {
+                var cart = JSON.parse(localStorage.getItem("set"));
+                var total = 0;
+                if (cart !== null && cart.length > 0){
+                    for (var i = 0; i < cart.length; i++) {
+                    total += cart[i].price
+                    }
+                    let counter = localStorage.getItem('counter');
+                    total = total * counter;
+                    localStorage.setItem('total_price', total);
+                    document.getElementById('footer_btn').innerHTML = "Rp."+localStorage.getItem("total_price")+" &nbsp&nbsp&nbsp&nbspContinue&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+                }
+            }
+
+            function add_kuah(info){
+                if (JSON.stringify(info)) {
+                    localStorage.setItem('kuah', JSON.stringify(info));
+                }
+                else {
+                    return false;
+                }
+            }
+
+            function add_drink(info) {
+                localStorage.setItem('drink', JSON.stringify(info));
+            }
+                    
+            function add_count() {
+                let counter = localStorage.getItem('counter');
+                counter++;
+                document.getElementById('counter').innerHTML = counter;
+                localStorage.setItem('counter', counter);
+            }
+
+            function sub_count() {
+                let counter = localStorage.getItem('counter');
+                if (counter > 1) {
+                    counter--;
+                }
+                document.getElementById('counter').innerHTML = counter;
+                localStorage.setItem('counter', counter);
+            }
+         </script>
+{% endblock %}

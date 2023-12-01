@@ -1,0 +1,37 @@
+.post {
+    padding: 15px; 
+    border: solid grey 2px; 
+    font-size: 15px;
+}
+
+.user {
+    padding: 15px;
+}
+
+.pagelink {
+    cursor: pointer;
+    color: rgb(0, 68, 255);
+}
+
+.likebutton {
+    padding: 0; 
+    border: none; 
+    background: none; 
+    font-size: 20px; 
+    color: red
+}
+
+.edit {
+    font-size: 12px;
+    padding: 3px; 
+    border: none; 
+    background: none;  
+    color: rgb(0, 68, 255);
+}
+
+.adv
+{
+    display: inline-block;
+    min-width: 167px;
+    width: 22%;
+}

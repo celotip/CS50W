@@ -1,0 +1,17 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h2>Posts from people you follow</h2><br>
+</form>
+<div id="posts">
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="pagination">
+    </ul>
+</nav>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/following.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    <table class="table table-borderless" style="width:100%">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align:center;">Image</th>
+            <th scope="col" style="text-align:center;">Item</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for item in listings %}
+            <tr>
+                <td style="width:50%; text-align:center;"><a href="{% url 'listing' item.id %}"><img src="{{ item.image }}" width="300"></a></td>
+                <td style="width:50%;">
+                    <div style="text-align:center;"><h5>{{ item.title }}</h5></div><br>
+                    <div class="line"><div class="adv"><b>Description: </b></div>{{ item.description }}</div>
+                    <div class="line"><div class="adv"><b>Price: </b></div>¥{{ item.price }}</div>
+                    <a href="{% url 'listing' item.id %}">Check</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

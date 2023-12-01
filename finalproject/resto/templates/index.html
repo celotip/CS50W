@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <title>{% block title %}AntaResto{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'styles.css' %}" rel="stylesheet">
+    </head>
+    <body style="padding-top:58px">
+        <div style="text-align: center; justify-content: center;">
+            <img src="https://i.ibb.co/nfDbW55/ANTARESTO.png" alt="antaresto_logo.png" style="width:100%; max-width:500px">
+            <p><a href="{% url 'order' %}" class="btn btn-dark" >Order Now</a></p>
+            <a href="{% url 'history' %}" class="btn btn-dark" >Order History</a>
+            </div>
+    </body>
+</html>

@@ -1,0 +1,100 @@
+input
+{
+    border-radius: 4px;
+    color: #3c4043;
+    font-family: arial,sans-serif;
+    font-size: 14px;
+
+}
+
+.logo-container {
+    position: relative;
+    align-self: flex-end;
+}
+.bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #4285f4;
+    font: 16px arial;
+  }
+
+.container {
+    justify-content: center;
+    padding: 6px;
+    max-height: 290px;
+    min-height: 120px;
+    height: calc(100% - 500px);
+    min-width: 300px;
+    display: flex;
+    flex-shrink: 0;
+  }
+
+.search
+{
+    border: 1px solid #d9d9d9;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.textbox
+{
+    display: flex;
+    cursor: text;
+    border-radius: 1px;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    font-size: 13px;
+    height: 25px;
+    padding: 1px 8px;
+    max-width: 500px;
+    min-width: 200px;
+}
+
+.text-adv {
+    float: left;
+    display: inline-block;
+    min-width: 167px;
+    min-height: 41px;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.adv
+{
+    float: left;
+    font-size: 13px;
+    display: inline-block;
+    min-width: 167px;
+    width: 16%;
+}
+
+.line {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}

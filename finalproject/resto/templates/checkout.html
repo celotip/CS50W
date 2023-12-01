@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div style='padding-left:20px'>
+        <h1>Checkout</h1><br>
+        <h4>Order:</h4>
+        <div id="order_list"></div>
+    </div>
+    <div id="footer" class="btn btn-dark"><a href="{% url 'index' %}"><button class="btn btn-dark" id="footer_btn"></button></a></div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            load_cart();
+            var cart = JSON.parse(localStorage.getItem("cart"));
+            document.getElementById('footer_btn').addEventListener('click', function() {
+                fetch("checkout/submit", {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        items: cart,
+                        price: localStorage.getItem('total_price'),
+                        counter: localStorage.getItem("counter"),
+                    }),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  
+                })
+            })
+        })
+
+        function load_cart() {
+            update_cart();
+            const order_list = document.getElementById('order_list');
+            var cart = JSON.parse(localStorage.getItem("cart"));
+            console.log(cart);
+            var total = 0;
+            if (cart !== null && cart.length > 0){
+                for (var i = 0; i < cart.length; i++) {
+                    const counter = localStorage.getItem("counter");
+                    const item = document.createElement('div');
+                    item.innerHTML = counter + " &#10005 " + cart[i].item;
+                    order_list.append(item);
+                    total += cart[i].price;
+                }
+                let counter = localStorage.getItem('counter');
+                total = total * counter;
+                localStorage.setItem('total_price', total);
+                document.getElementById('footer_btn').innerHTML = "Rp."+localStorage.getItem("total_price")+" Checkout";
+            }
+        }
+
+        function update_cart() {
+            var set_get = localStorage.getItem("set");
+            var kuah_get = localStorage.getItem("kuah");
+            var drink_get = localStorage.getItem("drink");
+            var set = JSON.parse(set_get);
+            var kuah = JSON.parse(kuah_get);
+            var drink = JSON.parse(drink_get);
+            if (kuah !== null) {
+                set.push(kuah);
+            }
+            if (drink !== null) {
+                set.push(drink);
+            }
+            localStorage.setItem('cart', JSON.stringify(set));         
+        }
+    </script>
+{% endblock %}

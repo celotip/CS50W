@@ -1,0 +1,24 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h2>All posts</h2><br>
+{% if user.is_authenticated %}
+    <h4>New post</h4>
+    <form id="compose-form">
+        <textarea id="new_content" name="new_content" rows="5" cols="50" placeholder="Add a new post"></textarea>
+        <input type="submit" value="Post">
+    </form>
+    <br>
+{% endif %}
+<div id="posts">
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="pagination">
+    </ul>
+</nav>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/posts.js' %}"></script>
+{% endblock %}

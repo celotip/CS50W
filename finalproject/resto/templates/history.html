@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div>
+        <h1>Order History</h1>
+        <table class="table table-borderless">
+            {% for order in orders %}
+                <tr style="gap:30px;">
+                        <h4>Order #{{order.id}}</h4>
+                        {% for i in order.items %}
+                        <div>{{order.counter}} x {{i.item}}</div>
+                        {% endfor %}
+                        <div>Price: Rp. {{order.total}}</div>
+                        <div style="color: grey;">{{order.timestamp}}</div>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div id="footer" class="btn btn-dark">Total: Rp. {{ total }}</div>
+{% endblock %}

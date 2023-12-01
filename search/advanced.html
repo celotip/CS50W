@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+        <nav class="bg-light border navbar navbar-expand navbar-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/">Google Search</a></li>
+                        </ul>
+                </div>
+            </div>
+        </nav>
+        <main style="margin: 40px; display: block;">
+        <div class="adv" style="font-size: large;">Find pages with...</div><br><br>
+        <form action="https://google.com/search" autocomplete="off">
+            <div class="line"><div class="adv">all these words: </div><div class="text-adv"><input class="textbox" style="width: 100%; display: inline-block;" type="text" name="as_q"></div></div>
+            <div class="line"><div class="adv">this exact word or phrase: </div><div class="text-adv"><input class="textbox" style="width: 100%; display: inline-block;" type="text" name="as_epq"></div></div>
+            <div class="line"><div class="adv">any of these words: </div><div class="text-adv"><input class="textbox" style="width: 100%; display: inline-block;" type="text" name="as_oq"></div></div>
+            <div class="line"><div class="adv">none of these words: </div><div class="text-adv"><input class="textbox" style="width: 100%; display: inline-block;" type="text" name="as_eq"></div></div><br>
+            <div class="line"><div class="adv" style="color: white">a</div><div class="text-adv"><div style="width: 100%; display: inline-block; text-align: right; min-width: 100px; max-width: 500px"><button style="background-color: #4d90fe; color: white; padding-left: 12px; padding-right: 12px; padding-top: 4px; padding-bottom: 4px; border: 1px solid blue; font-size: 13px; border-radius: 4px;" type="submit">Advanced Search</button></div></div>
+        </form>
+    </main>
+{% endblock %}

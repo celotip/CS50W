@@ -1,0 +1,27 @@
+textarea {
+    min-height: 400px;
+}
+
+.boxread {
+    border: solid black 2px;
+    cursor: pointer;
+    background-color: white;
+    padding: 6px;
+}
+
+.boxunread {
+    border: solid black 2px;
+    cursor: pointer;
+    background-color: rgb(34, 33, 33);
+    color: white;
+    padding: 6px;
+}
+
+.adv
+{
+    display: inline-block;
+    min-width: 167px;
+    width: 22%;
+}
+
+

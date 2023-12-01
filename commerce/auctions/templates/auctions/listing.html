@@ -1,0 +1,75 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="container">
+        <div style="display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'box1 box2';
+        gap:20px">
+            <div id="box1" style="background-color: white;">
+                <img src="{{ item.image }}" style="max-width:500px; max-height:500px;" ><br><br>
+            </div>
+            <div id="box2" style="background-color: white;">
+                <h2>{{ item.title }} </h2>{% if item not in not_watchlist %}<div style="color:#4B0082">&#10003 watchlist &#10003</div><br> {% endif %}
+                <div class="line"><div class="adv"><b>Description: </b></div>{{ item.description }}</div>
+                <div class="line"><div class="adv"><b>Current Price: </b></div>¥{{ item.price }}</div>
+                {% if not item.closed %}
+                    {% if item.current_bidder == user %}
+                        <div>You are the current bidder</div>
+                    {% elif item.current_bidder == None %}
+                        <div>No bids yet</div>    
+                    {% else %}
+                        <div>{{ item.current_bidder }} is the current bidder</div>
+                    {% endif %}
+                    <form action="{% url 'bid' item.id %}" method="post">
+                        {% csrf_token %}
+                            <input type="number" id="bid " name="bid" placeholder="Bid" min="{{ item.price|add:'100' }}" style="width:100%;"><br>
+                            <button style="width:100%; background-color: #4d90fe; color: white; padding-left: 12px; padding-right: 12px; padding-top: 4px; padding-bottom: 4px; border: 1px solid blue; border-radius: 4px;" type="submit">Place bid</button>
+                    </form><br>
+                    <div class="line"><div class="adv"><b>Listed by: </b></div>{{ item.creator }}</div>
+                    <div class="line">
+                        <div class="adv"><b>Category: </b></div>
+                        {% if category == None %}
+                            No category listed
+                        {% else %}
+                            {{ category }}
+                        {% endif %}
+                    </div><br>
+                    {% if user != item.creator %}
+                        {% if item in not_watchlist %}
+                            <form action="{% url 'watch' item.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="+ Add to Watchlist" style="background-color: #4B0082; color: white; padding-left: 12px; padding-right: 12px; padding-top: 4px; padding-bottom: 4px; border: 1px solid purple; border-radius: 4px;">
+                            </form>
+                        {% else %}
+                            <form action="{% url 'remove' item.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="- Remove from Watchlist" style="background-color: #DC143C; color: white; padding-left: 12px; padding-right: 12px; padding-top: 4px; padding-bottom: 4px; border: 1px solid red; border-radius: 4px;" type="submit">
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                    {% if user == item.creator %}
+                        <form action="{% url 'close' item.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Close listing" style="background-color: #DC143C; color: white; padding-left: 12px; padding-right: 12px; padding-top: 4px; padding-bottom: 4px; border: 1px solid red; border-radius: 4px;">
+                        </form>
+                    {% endif %}
+                {% else %}
+                        <h1>Listing is closed</h1>
+                        {% if item.current_bidder == user %}
+                            <h1 style="color:#200972;; text-align: center;">Congratulations! You won the bidding.</h1>
+                        {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <p style="border: 1px solid grey;"><h5>{{ comment.user }}</h5><div style="margin-left: 40px;"> {{ comment.comment }}</div></p>
+    {% endfor %}
+    <form action="{% url 'comment' item.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="comment" placeholder="Add a comment">
+        <input type="submit">
+    </form>
+{% endblock %}

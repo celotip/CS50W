@@ -1,0 +1,22 @@
+body {
+    padding: 10px;
+}
+
+.adv {
+    float: left;
+    display: inline-block;
+    min-width: 167px;
+    width: 16%;
+}
+
+.container {
+    justify-content: center;
+    padding: 6px;
+    display: flex;
+  }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "box1 box2";
+}
