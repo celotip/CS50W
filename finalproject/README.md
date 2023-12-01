@@ -1,4 +1,7 @@
-# Distinctiveness and Complexity
+# Food Ordering Web App in Restaurants - AntaResto
+#### Video Demo:  <https://youtu.be/Aue8bPhJDsY>
+
+## Distinctiveness and Complexity
 I think that this project is fairly distinct and more complex than all the projects in CS50W course because I have added a few features that is not taught in this course:
 1. The concept of ordering food in a restaurant itself is distinct from all the projects in CS50W
 1. The usage of localstorage to store, get, and remove various items
@@ -11,7 +14,7 @@ I think that this project is fairly distinct and more complex than all the proje
 1. CSS is also quite complex. Involves layering (z-index), and vertical and horizonatal alignment
 
 
-# What’s contained in each file created
+## What’s contained in each file created
 1. Layout.html: The back button can be seen in layout.html 
 1. Index.html: Shows the homepage. Pretty straightforward, only shows the logo, and two buttons
 1. The first button (Order now) will take you to the login page if not logged in. If logged in, it will take you to menu.html. This page will show you the pictures and names of categories excluding the exclude_list in views.py. There will also be a check button in each card that will take you to that category. At the top of the page, the table no., and the last order time is shown. Table no. can be set with the django admin page, whereas the last order time has a default value of 30 mins after the user is created. After the expiry time, the user has no longer access to any of the page except the homepage and will be redirected to expired.html
@@ -25,8 +28,8 @@ I think that this project is fairly distinct and more complex than all the proje
 1. urls.py: added 10 urls
 1. views.py contains the views functions for each url
 
-# How to run application
+## How to run application
 To run this application, you can either use python manage.py runserver to run it in the localhost, or use ngrok http 8000, to run it using ngrok in port 8000. Then, you need to add the link provided by ngrok in the allowed hosts and csrf trusted origins in the settings.py. If you don't have a user yet, you need to login to the admin page by creating your own superuser (python manage.py createsuperuser) and add a user from the admin page. Then, change the table_no of the user you created. To view all orders, you can do so in the admin page.
 
-# Additional information
+## Additional information
 For this application to run properly, the timezone needs to be set correctly. Otherwise, your account may be considered expired.
