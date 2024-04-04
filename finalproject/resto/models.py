@@ -20,14 +20,14 @@ class User(AbstractUser):
         
 class Category(models.Model):
     title = models.CharField(max_length=200)
-    pic = models.CharField(max_length=200, blank=True)
+    pic = models.ImageField(null=True, blank=True, upload_to="images/")
 
     def __str__(self):
         return f"{self.title}"
 
 class Item(models.Model):
     title = models.CharField(max_length=200)
-    pic = models.CharField(max_length=200, blank=True)
+    pic = models.ImageField(null=True, blank=True, upload_to="images/")
     description = models.TextField(blank=True)
     price = models.IntegerField(default=0)
     category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="options", default=1)

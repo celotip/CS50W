@@ -8,7 +8,7 @@
         <div class="card mb-3">
             <table class="table table-borderless" style="width:100%">
                 <tr>
-                    <td style="width:50%; text-align:center; justify-content: center;"><a href="{% url 'extend' item.category.id %}"><img src="{{ item.pic }}" width="150"></a></td>
+                    <td style="width:50%; text-align:center; justify-content: center;"><a href="{% url 'extend' item.category.id %}"><img src="{{ item.pic.url }}" width="150"></a></td>
                     <td style="width:50%;">
                         <h5 class="card-title" >{{ item.title }}</h5>
                         <p class="card-text">{{ item.description|safe }}</p>

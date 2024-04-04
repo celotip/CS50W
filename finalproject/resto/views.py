@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.db import IntegrityError
 
 from .models import Category, Item, User, Order
 
@@ -130,3 +131,29 @@ def submit_checkout(request):
         )
         order.save()
         return JsonResponse({"message": "Order submitted"}, status=201)
+    
+def register(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+
+        # Ensure password matches confirmation
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "register.html", {
+                "message": "Passwords must match."
+            })
+
+        # Attempt to create new user
+        try:
+            user = User.objects.create_user(username, password)
+            user.save()
+        except IntegrityError as e:
+            print(e)
+            return render(request, "register.html", {
+                "message": "Username already taken."
+            })
+        login(request, user)
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request, "register.html")
